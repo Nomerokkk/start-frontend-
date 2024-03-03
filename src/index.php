@@ -1,4 +1,4 @@
-<? include 'templates/header.php'; ?>
+<? include 'header.php'; ?>
 	
 
-<? include 'templates/footer.php'; ?>
+<? include 'footer.php'; ?>
