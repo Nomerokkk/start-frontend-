@@ -1,4 +1,3 @@
-<? global $target;
-
-    $target = './assets';
+<? 
+    $target = './assets/dist';
 ?>
