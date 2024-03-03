@@ -22,7 +22,7 @@ const browserSync = gulpBrowserSync.create();
 
 // CONST
 const folder = 'src',
-	hostName = 'example';
+	hostName = 'http://example:8888/';
 
 const paths = {
 	dist: `./${folder}/assets/dist`,
@@ -81,7 +81,7 @@ function clean() {
 // INIT SERVER
 function browserSyncInit(done) {
 	browserSync.init({
-		proxy: `http://${hostName}:8888/`,
+		proxy: hostName,
 		host: 'localhost',
 		port: 3000,
 	});
