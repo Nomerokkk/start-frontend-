@@ -1,0 +1,100 @@
+.j-wow,
+.j-wow-sec-el {
+    visibility: hidden;
+    &.animate {
+        visibility: visible;
+        animation-duration: 1s;
+        animation-timing-function: 'easeInOut';
+        will-change: transform;
+        &.j-wow-bottom {
+            animation-name: bottom;
+        }
+        &.j-wow-top {
+            animation-name: top;
+        }
+        &.j-wow-left {
+            animation-name: left;
+        }
+        &.j-wow-right {
+            animation-name: right;
+        }
+        &.j-wow-zoom {
+            animation-name: zoom;
+        }
+        &.j-wow-opacity {
+            animation-name: opacity;
+            animation-duration: 2s;
+        }
+    }
+    &.animated {
+        visibility: visible;
+    }
+}
+
+.j-parallax-banner-el {
+    will-change: transform;
+}
+
+@keyframes bottom {
+    0% {
+        opacity: 0;
+        transform: skew(0, 3deg) translate3d(0, 10vh, 0);
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@keyframes top {
+    0% {
+        opacity: 0;
+        transform: skew(0, -3deg) translate3d(0, -10vh, 0);
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@keyframes left {
+    0% {
+        opacity: 0;
+        transform: skew(-10deg, 0) translate3d(-3vw, 0, 0);
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@keyframes right {
+    0% {
+        opacity: 0;
+        transform: skew(10deg, 0) translate3d(3vw, 0, 0);
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@keyframes zoom {
+    0% {
+        opacity: 0;
+        transform: scale(.8);
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

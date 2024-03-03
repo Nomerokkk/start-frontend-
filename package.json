@@ -1,0 +1,49 @@
+{
+	"name": "themes",
+	"version": "1.0.0",
+	"description": "",
+	"main": "gulpfile.js",
+	"scripts": {
+		"start": "gulp",
+		"build": "gulp build --production true"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "module",
+	"devDependencies": {
+		"@babel/core": "^7.23.9",
+		"@babel/preset-env": "^7.23.9",
+		"@babel/register": "^7.23.7",
+		"autoprefixer": "^10.4.17",
+		"babel-loader": "^9.1.3",
+		"browser-sync": "^3.0.2",
+		"cssnano": "^6.0.5",
+		"del": "^7.1.0",
+		"gulp": "^4.0.2",
+		"gulp-changed": "^5.0.2",
+		"gulp-if": "^3.0.0",
+		"gulp-postcss": "^10.0.0",
+		"gulp-sass": "^5.1.0",
+		"gulp-sourcemaps": "^3.0.0",
+		"gulp-svg-sprite": "^2.0.3",
+		"gulp-webp": "^5.0.0",
+		"postcss": "^8.4.35",
+		"sass": "^1.71.1",
+		"webpack": "^5.90.3",
+		"webpack-stream": "^7.0.0"
+	},
+	"dependencies": {
+		"@emretulek/jbvalidator": "^1.0.9",
+		"@fancyapps/ui": "^5.0.33",
+		"gsap": "^3.12.5",
+		"inputmask": "^5.0.8",
+		"intl-tel-input": "^19.5.3",
+		"jquery": "^3.7.1",
+		"mouse-follower": "^1.1.2",
+		"nice-select2": "^2.1.0",
+		"normalize.css": "^8.0.1",
+		"reset-css": "^5.0.2",
+		"swiper": "^11.0.6"
+	}
+}

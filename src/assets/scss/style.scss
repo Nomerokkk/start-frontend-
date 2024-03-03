@@ -1,0 +1,21 @@
+@import '_vars.scss';
+
+@import 'normalize.css/normalize';
+@import 'reset-css/reset';
+
+@import 'global/_fonts.scss';
+@import 'global/_global.scss';
+@import 'global/_animate.scss';
+@import 'global/_header.scss';
+@import 'global/_btn.scss';
+@import 'global/_title.scss';
+@import 'global/_text.scss';
+@import 'global/_slider.scss';
+
+@import 'intl-tel-input/build/css/intlTelInput.min.css';
+@import 'global/_form.scss';
+@import 'global/_footer.scss';
+
+@import '@fancyapps/ui/dist/fancybox/fancybox';
+@import 'global/_modal.scss';
+@import 'global/_loader.scss';
