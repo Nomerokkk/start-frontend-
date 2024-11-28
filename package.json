@@ -43,6 +43,7 @@
 		"mouse-follower": "^1.1.2",
 		"nice-select2": "^2.1.0",
 		"normalize.css": "^8.0.1",
+		"page-scroll-to-id": "^1.6.8",
 		"reset-css": "^5.0.2",
 		"swiper": "^11.0.6"
 	}

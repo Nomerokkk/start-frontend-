@@ -1,0 +1,55 @@
+.label {
+    display: block;
+    position: relative;
+    cursor: text;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    height: 62px;
+    border-radius: 10px;
+    border: 1px solid #fff;
+    padding: 0 20px;
+    color: #fff;
+    font: 300 16px / 1.25 $font;
+    background: none;
+    transition: .2s border-color $trans;
+    &:hover {
+        border-color: rgba(#fff, .3);
+    }
+    &:focus {
+        border-color: inherit;
+        &::placeholder {
+            color: rgba(#fff, 0);
+        }
+    }
+    &::placeholder {
+        color: #fff;
+    }
+    &.invalid {
+        border-color: red;
+    }
+}
+
+textarea {
+    resize: none;
+    &.input {
+        height: auto;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.invalid-feedback {
+    color: red;
+    font: 400 14px / 1.25 $font;
+    margin: 6px 0 0;
+}
+
+
+@media screen and (max-width: 767px) {
+    .input {
+        height: 50px;
+    }
+}

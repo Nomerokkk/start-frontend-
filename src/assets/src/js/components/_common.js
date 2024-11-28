@@ -1,8 +1,14 @@
 import $ from 'jquery';
+import { gsap } from 'gsap';
+import { ScrollTrigger} from 'gsap/ScrollTrigger.js';
+import mPageScroll2id from 'page-scroll-to-id';
+
 
 const $up = document.querySelector('.j-up'),
 	$header = document.querySelector('.j-header');
 
+
+let lastScrollTop = 0;
 
 function fixed_element() {
 	let scroll = window.scrollY;
@@ -13,18 +19,21 @@ function fixed_element() {
 		$header.classList.remove('fixed');
 	}
 
-	if(scroll > 2000) {
-		$up.classList.add('active');
+	if(scroll > lastScrollTop) {
+		$header.classList.add('down');
 	} else {
-		$up.classList.remove('active');
+		$header.classList.remove('down');
 	}
+
+	lastScrollTop = scroll <= 0 ? 0 : scroll;
+
+	if(scroll > 2000) {
+		$up.classList.add('fixed');
+	} else {
+		$up.classList.remove('fixed');
+	}
+	
 }
-
-// $up.addEventListener('click', function(e) {
-// 	e.preventDefault();
-
-// 	gsap.to(window, {duration: 2, scrollTo: 0, ease: Power3.easeInOut});
-// });
 
 window.addEventListener('scroll', function() {
 	fixed_element();
@@ -32,30 +41,43 @@ window.addEventListener('scroll', function() {
 fixed_element();
 
 
-// data-toggle-class
-$(function() {
-	let btn = '[data-toggle-class]';
+// [data-toggle-class]
+$('[data-toggle-class]').on('click', function(e) {
+	e.preventDefault();
 
-	$(btn).on('click', function(e) {
-		e.preventDefault();
+	let $this = $(this),
+		target = $this.attr('data-toggle-class'),
+		$target = $(target);
 
-		let $this = $(this),
-			target = $this.attr('data-toggle-class'),
-			$target = $(target);
+	$this.toggleClass('active');
+	$target.toggleClass('active');
 
-		$this.toggleClass('active');
-		$target.toggleClass('active');
+	setTimeout(function() {
+		ScrollTrigger.refresh();
+	}, 1000);
+});
 
-		setTimeout(function() {
-			ScrollTrigger.refresh();
-		}, 1000);
-	});
+
+// [data-toggle]
+$('[data-toggle]').on('click', function(e) {
+	e.preventDefault();
+
+	let $this = $(this),
+		target = $this.attr('data-toggle'),
+		$target = $(target);
+
+	$this.toggleClass('active');
+	$target.slideToggle();
+
+	setTimeout(function() {
+		ScrollTrigger.refresh();
+	}, 1000);
 });
 
 
 //progress
 document.addEventListener('DOMContentLoaded', function() {
-    let $indicator = document.querySelector('.j-page-progress');
+    let $indicator = document.querySelector('.j-progress');
 
     function updateProgressIndicator() {
         let scrollPosition = window.scrollY,
@@ -69,22 +91,27 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
 // [data-target]
-var btn = '[data-target]';
+$(function() {
+	let btn = '[data-target]';
 
-$(document).on('click', btn, function(e) {
-	e.preventDefault();
+	$(document).on('click', btn, function(e) {
+		e.preventDefault();
 
-	var $this = $(this),
-		target = $this.attr('data-target'); 
+		let $this = $(this),
+			target = $this.attr('data-target'),
+			array1 = target.split(',').map(item => item.trim());
 
 		$(btn).each(function() {
-			var $this_new = $(this),
+			let $this_new = $(this),
 				target_new = $this_new.attr('data-target'),
-				$target_new = $(target_new); 
+				$target_new = $(target_new),
+				array2 = target_new.split(',').map(item => item.trim());
 
-			if(target != target_new && !$(target).parents().is('.active-target')) {			
+			if(target != target_new && 
+				!$(target).parents().is('.active-target') &&
+				!array1.some(item => array2.includes(item))
+			) {			
 				$this_new.removeClass('active-target');
 				$target_new.removeClass('active-target');
 			}
@@ -92,26 +119,45 @@ $(document).on('click', btn, function(e) {
 
 		$this.toggleClass('active-target');
 		$(target).toggleClass('active-target');
-});
 
-$(document).on('click', function(e) {
-	var $target = $(e.target);
-	
-	if( !$target.is(btn) && 
-		!$target.parents().is(btn) && 
-		!$target.is('.active-target') && 
-		!$target.parents().is('.active-target') 
-	) {
-		hide_target();
-	}
-});
 
-function hide_target() {
-	$(btn).each(function() {
-		var $this = $(this),
-			target = $this.attr('data-target'); 
-
-		$this.removeClass('active-target');
-		$(target).removeClass('active-target');
+		if($this.is('[data-overflow]')) {
+			$('body').toggleClass('overflow');
+		}
 	});
-}
+
+	$(document).on('click', function(e) {
+		let $target = $(e.target);
+		
+		if( !$target.is(btn) && 
+			!$target.parents().is(btn) && 
+			!$target.is('.active-target') && 
+			!$target.parents().is('.active-target') 
+		) {
+			hide_target();
+		}
+	});
+
+	function hide_target() {
+		$(btn).each(function() {
+			let $this = $(this),
+				target = $this.attr('data-target'); 
+
+			$this.removeClass('active-target');
+			$(target).removeClass('active-target');
+		});
+
+		$('body').removeClass('overflow');
+	}
+
+	$('.j-overlay, [data-target-close]').on('click', function() {
+		hide_target();
+	});
+});
+
+
+// scroll to element
+$('a[href^="#"]:not([data-fancybox])').mPageScroll2id({
+	highlightClass: 'active',
+	offset: $(window).width() >= 768 ? 92 : 96,
+});

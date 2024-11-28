@@ -1,13 +1,15 @@
 import $ from 'jquery';
 import { Fancybox } from '@fancyapps/ui';
+import { opts_fancybox } from './_fancybox.js';
 
 const $loader = $('.j-loader');
 
 // send message
 $(document).on('submit', '.j-form', function (event) {
 	let $this = $(this),
-		data = new FormData($this[0]);
-	
+		data = new FormData($this[0]),
+		action = $this.attr('action');
+
 	$.ajax({
 		url: ajaxurl,
 		type: 'POST',
@@ -16,7 +18,7 @@ $(document).on('submit', '.j-form', function (event) {
 		contentType: false,
 		data: data,
 		beforeSend: function() {
-			$loader.addClass('active').fadeIn();
+			$loader.fadeIn();   
 		},
 		success: function (response) {
 			$this.find('[required]').val('');
@@ -24,36 +26,23 @@ $(document).on('submit', '.j-form', function (event) {
 				.val('')
 				.trigger('change');
 
-			Fancybox.close();
-			Fancybox.show(
-				[{
-					src: '#ok',
-					type: "inline",
-				}], opts_fancybox
-			);
+			if(!action) {
+				Fancybox.close();
+				Fancybox.show(
+					[{
+						src: '#ok',
+						type: "inline",
+					}], opts_fancybox
+				);
 
-			hide_loader();
+				$loader.fadeOut(function() {
+					$loader.remove();	
+				});
+			} else {
+				document.location.href = action;
+			}
 		}
 	});
 
 	return false;
 });
-
-//fancybox
-const opts_fancybox = {
-	autoFocus: false,
-	trapFocus: false,
-	dragToClose: false,
-}
-Fancybox.bind("[data-fancybox]", opts_fancybox);
-$(document).on('click', '.j-close-modal', function() {
-    Fancybox.close();
-});
-
-
-// loader
-function hide_loader() {
-	$loader.fadeOut(function() {
-		$loader.removeClass('active')
-	});
-}

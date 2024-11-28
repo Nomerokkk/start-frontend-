@@ -22,7 +22,7 @@ const browserSync = gulpBrowserSync.create();
 
 // CONST
 const folder = 'src',
-	hostName = 'http://example:8888/';
+	hostName = 'http://start/';
 
 const paths = {
 	dist: `./${folder}/assets/dist`,
@@ -115,7 +115,7 @@ function imgProcess() {
 		.pipe(changed(dist.img))
 		.pipe(
 			gulpIf(
-				condition, 
+				condition,
 				webp({
 					quality: 100,
 				}),
@@ -138,8 +138,7 @@ function scssProcess() {
 			.pipe(sass({
 				includePaths: ['node_modules']
 			}))
-			// .pipe(postcss([plugins]))
-			// .pipe(prettier())
+			.pipe(postcss([ autoprefixer(), cssnano() ]))
 			.pipe(gulp.dest(dist.css));
 	} else {
 		return gulp
@@ -189,6 +188,39 @@ function jsProcess() {
 		.pipe(gulp.dest(dist.js));
 }
 
+function jsProcessFirst() {
+	return gulp
+		.src([src.js + '/first.js'])
+		.pipe(webpackStream({
+			mode: (arg.production === 'true') ? 'production' : 'development',
+			output: {
+				filename: 'first.bundle.js',
+			},
+			plugins: [
+				new webpack.ProvidePlugin({
+					$: 'jquery',
+					jQuery: 'jquery',
+				})
+			],
+			module: {
+				rules: [
+					// js babel
+					{
+						test: /\.m?js$/i,
+						exclude: /(node_modules|bower_components)/,
+						use: {
+							loader: 'babel-loader',
+							options: {
+								presets: ['@babel/preset-env'],
+							},
+						},
+					},
+				],
+			}
+		}))
+		.pipe(gulp.dest(dist.js));
+}
+
 
 // SVG SPRITES
 function SVGProcess() {
@@ -211,7 +243,7 @@ function SVGProcess() {
 function watchFiles() {
 	gulp.watch(src.php, gulp.series(browserSyncReload));
 	gulp.watch(src.scss + '/**/*.scss', gulp.series(scssProcess));
-	gulp.watch(src.js + '/**/*.js', gulp.series(jsProcess, browserSyncReload));
+	gulp.watch(src.js + '/**/*.js', gulp.series(jsProcessFirst, jsProcess, browserSyncReload));
 	gulp.watch(src.img, gulp.series(imgProcess, browserSyncReload));
 	gulp.watch(src.svg, gulp.series(SVGProcess, browserSyncReload));
 	gulp.watch(src.fonts, gulp.series(copyFonts, browserSyncReload));
@@ -222,6 +254,7 @@ const buildGulp = gulp.series(
 	clean,
 	gulp.parallel(
 		scssProcess,
+		jsProcessFirst,
 		jsProcess,
 		imgProcess,
 		SVGProcess,

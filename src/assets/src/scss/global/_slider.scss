@@ -20,9 +20,10 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 5;
     transition: .3s $trans;
+    user-select: none;
     cursor: pointer;
+    z-index: 5;
     &.prev {
         left: -30px;
         svg {

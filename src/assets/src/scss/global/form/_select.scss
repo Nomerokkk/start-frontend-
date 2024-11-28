@@ -1,0 +1,52 @@
+.select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    &.open {
+        .nice-select-dropdown {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+        }
+        svg {
+            transform: rotate(-90deg);
+        }
+    }
+    svg {
+        fill: #fff;
+        height: 15px;
+        width: 8px;
+        transform: rotate(90deg);
+        transition: .3s transform $trans;
+    }
+    .nice-select-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #fff;
+        color: inherit;
+        border-radius: 10px;
+        margin: 10px 0 0;
+        font: 400 14px / 1.25 $font;
+        padding: 10px 0;
+        z-index: 10;
+        transition: .2s $trans;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(5px);
+        .option {
+            padding: 8px 15px;
+            cursor: pointer;
+            &:hover {
+
+            }
+            &.selected {
+
+            }
+        }
+    }
+}

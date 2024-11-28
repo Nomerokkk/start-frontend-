@@ -1,0 +1,71 @@
+.iti {
+    display: block;
+    .input {
+        padding: 0 0 0 70px !important;
+    }
+    &__flag-container {
+        padding: 0;
+        bottom: unset;
+        height: 60px;
+        top: 1px;
+    }
+    &__flag {
+        box-shadow: none;
+        border-radius: 2px;
+        flex-shrink: 0;
+        overflow: hidden;
+        background-image: url('../img/flags@2x.webp');
+    }
+    &__globe {
+        background-image: url('../img/globe@2x.webp');
+    }
+    &__selected-flag {
+        padding: 0 10px;
+        border-right: 1px solid #fff !important;
+        &:hover {
+            background: rgba(#fff, .1) !important;
+        }
+    }
+    &__arrow {
+        border: 0;
+        flex-shrink: 0;
+        width: 7px;
+        height: 12px;
+        margin: 0 0 0 8px;
+        fill: #fff;
+        svg {
+            width: 100%;
+            height: 100%;
+            transition: .3s $trans;
+            transform: rotate(90deg);
+        }
+        &--up {
+            svg {
+                transform: rotate(-90deg);
+            }
+        }
+    }
+    &__dropdown-content {
+        border: 0 !important;
+        box-shadow: 0 0 10px 0 rgba(#000, .1) !important;
+        z-index: 10 !important;
+    }
+    &__search-input {
+        font-size: 16px;
+    }
+    &__country-list {
+        font-size: 14px;
+        border: 0;
+        margin: 0;
+        border-radius: 0 0 6px 6px;
+        color: #000;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .iti {
+        &__flag-container {
+            height: 48px;
+        }
+    }
+}

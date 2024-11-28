@@ -1,0 +1,42 @@
+.form {
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -15px;
+    }
+    &__col {
+        width: 33.3333%;
+        padding: 15px;
+        &--full {
+            width: 100%;
+        }
+    }
+    &__checkbox {
+        margin: 30px 0 0;
+        display: flex;
+        justify-content: center;
+    }
+    &__btn {
+        display: flex;
+        justify-content: center;
+        margin: 30px 0 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .form {
+        &__row {
+            margin: -5px;
+        }
+        &__col {
+            width: 100%;
+            padding: 5px;
+        }
+        &__checkbox {
+            margin: 15px 0 0;
+        }
+        &__btn {
+            margin: 15px 0 0;
+        }
+    }
+}

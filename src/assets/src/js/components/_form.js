@@ -15,28 +15,32 @@ function initSelect(el) {
 }
 
 //form
-const $form = $('.j-form');
-
-const validator = $form.jbvalidator({
-	errorMessage: false,
-	successClass: true,
-	html5BrowserDefault: false,
-	validClass: 'valid',
-    invalidClass: 'invalid',
-});
+const $form = $('.j-form'),
+	validator = $form.jbvalidator({
+		errorMessage: false,
+		successClass: true,
+		html5BrowserDefault: false,
+		validClass: 'valid',
+		invalidClass: 'invalid',
+	});
 
 
 // file
 $('input[type="file"]').on('change', function() {
 	let $this = $(this),
-		$file_name = $this.closest('.j-file').find('.j-file-name'),
-		val = $this.val().split('\\').pop(),
-		data_old_text = $file_name.attr('data-old-text');
+		files = $(this)[0].files,
+		fileList = $('.j-file-name');
+        
+	fileList.empty();
 
-	if(val != '') {
-		$file_name.html(val);
+	if (files.length > 0) {
+		for (var i = 0; i < files.length; i++) {
+			var file = files[i];
+			var listItem = $('<div></div>').text(file.name + ' (' + file.size + ' bytes)');
+			fileList.append(listItem);
+		}
 	} else {
-		$file_name.html(data_old_text);
+		fileList.append($('<div></div>').text('No files selected'));
 	}
 });
 
@@ -59,7 +63,7 @@ function init_phones(el) {
 			},
 			autoPlaceholder: 'off',
 			i18n: {
-				searchPlaceholder: searchPlaceholder,
+				searchPlaceholder: text_search,
 			}
 		});
     
@@ -105,5 +109,42 @@ $('.j-phone').each(function(e, el) {
 });
 
 
-//exports
-export { init_phones, initSelect, validator };
+
+// result messages
+function messagesResult(status, title) {
+	let classes = '',
+		icon = '';
+
+	if(status == true) {
+		icon = 'ok';
+	} else {
+		icon = 'close';
+		classes = 'messages__item--error';
+	}
+	
+	let $temp = $(`<div class="messages__item ${classes}"><div class="messages__icon"><svg><use xlink:href="${target}/img/icons.svg#${icon}"/></svg></div><div class="messages__title">${title}</div></div>`);
+
+	$('.j-messages').prepend($temp);
+
+	setTimeout(() => {
+		$temp.addClass('active');
+        setTimeout(function() {
+            $temp.remove();
+        }, 500);
+	}, 3000);
+}
+
+$(document).on('click', '.messages__item', function() {
+    $(this).addClass('active');
+    setTimeout(function() {
+        $(this).remove();
+    }, 500);
+});
+
+$form.find('.btn[type="submit"]').on('click', function() {
+	setTimeout(() => {
+		if($(this).closest('.j-form').find('.invalid').length > 0) {
+			messagesResult(false, text_errors);
+		}
+	}, 100);
+});

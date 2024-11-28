@@ -3,44 +3,22 @@
 	outline: none !important;
 }
 
-* {
-    &::selection {
-        
-    }
-}
-
 html {
 	width: 100%;
 	max-width: 100%;
 	min-height: 100%;
 }
 body {
-	overflow-x: hidden;
-	position: relative;
 	min-width: 320px;
-	margin: 0;
 	background: #fff;
-	
 }
 
 
 // TEXT ELEMENTS
 a {
-	transition: .3s $trans;
+	transition: .2s $trans;
 	text-decoration: none;
 	color: inherit;
-}
-b, strong {
-	font-weight: 700;
-}
-
-
-// BUTTON
-button {
-	padding: 0;
-	border: 0;
-	user-select: none;
-	cursor: pointer;
 }
 
 
@@ -73,6 +51,21 @@ picture {
     &--full {
         max-width: 1920px;
     }
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: -15px;
+}
+.col {
+	padding: 15px;
+}
+
+// DATA
+[data-toggle],
+[data-toggle-class],
+[data-target] {
+	user-select: none;
 }
 
 // OBJECTS

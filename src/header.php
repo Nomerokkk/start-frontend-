@@ -1,9 +1,8 @@
 <? 
 	include 'templates/vars.php';
 ?>
-
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Name</title>
@@ -12,4 +11,10 @@
 	<link rel="stylesheet" href="<?= $target; ?>/css/style.css">
 </head>
 <body>
+	<!-- #top -->
+	<div id="top"></div>
+	<!-- .wrapper -->
 	<div class="wrapper j-wrapper">
+		<header class="header j-header">
+			<div class="header__progress j-progress"></div>
+		</header>

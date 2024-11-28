@@ -1,21 +1,29 @@
-@import '_vars.scss';
+@import 'vars';
 
 @import 'normalize.css/normalize';
 @import 'reset-css/reset';
 
-@import 'global/_fonts.scss';
-@import 'global/_global.scss';
-@import 'global/_animate.scss';
-@import 'global/_header.scss';
-@import 'global/_btn.scss';
-@import 'global/_title.scss';
-@import 'global/_text.scss';
-@import 'global/_slider.scss';
+@import 'global/fonts';
+@import 'global/global';
+@import 'global/animation';
+@import 'global/header';
+@import 'global/btn';
+@import 'global/title';
+@import 'global/text';
+@import 'global/slider';
 
-@import 'intl-tel-input/build/css/intlTelInput.min.css';
-@import 'global/_form.scss';
-@import 'global/_footer.scss';
+// form
+@import 'intl-tel-input/build/css/intlTelInput';
+@import 'global/form/input';
+@import 'global/form/iti';
+@import 'global/form/checkbox';
+@import 'global/form/select';
+@import 'global/form/messages';
 
+// footer
+@import 'global/footer';
+
+// modal
 @import '@fancyapps/ui/dist/fancybox/fancybox';
-@import 'global/_modal.scss';
-@import 'global/_loader.scss';
+@import 'global/modal';
+@import 'global/loader';
